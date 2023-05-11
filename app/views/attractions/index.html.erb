@@ -1,0 +1,40 @@
+<section class="hero is-info is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Category: <%= @category.name %>
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% @attractions.each do |attraction| %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= link_to attraction_path(attraction.api_id) do %>
+                  <% if attraction.images_src.present? %>
+                    <%= image_tag attraction.images_src %>
+                  <% else %>
+                    <%= image_tag "l_e_others_500.jpg" %>
+                  <% end %>
+                <% end %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <div class="title"><%= link_to attraction.name, attraction_path(attraction.api_id) %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

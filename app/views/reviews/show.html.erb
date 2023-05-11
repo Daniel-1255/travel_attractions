@@ -1,0 +1,39 @@
+<section class="hero is-small is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <%= @review.attraction.name %>
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4"><%= @review.title %></p>
+                <p class="title is-5">レビュアー: <%= link_to @review.user.username, user_path(@review.user)%></p>
+              </div>
+            </div>
+            <div class="content">
+              <table class="table is-narrow">
+                <tr>
+                  <td><%= simple_format @review.body %></td>
+                </tr>
+              </table>
+              <% if user_signed_in? && @review.user.id == current_user.id %>
+                <%= link_to "編集", edit_review_path, class: "button is-success" %>
+              <% end %>
+              <%= link_to "戻る", attraction_path(@review.attraction.api_id), class: "button is-primary" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

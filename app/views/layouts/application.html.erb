@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TravelAttractions</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if flash[:notice] %>
+      <div class="notification is-info">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="notification is-danger">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+
+    <nav class="navbar is-success">
+      <div class="navbar-brand">
+        <%= link_to root_path, class: "navbar-item" do %>
+          <h1 class="title is-2">TravelAttractions</h1>
+        <% end %>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <%= link_to "マイページ", user_path(current_user), class: "button is-primary is-light" %>
+                </p>
+                <p class="control">
+                  <%= link_to "Log out", destroy_user_session_path , method: :delete, class: "button is-danger is-light" %>
+                </p>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <%= link_to "Log in", new_user_session_path, class: "button is-primary is-light"%>
+                </p>
+                <p class="control">
+                  <%= link_to "Sign up", new_user_registration_path, class: "button is-success is-light"%>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </nav>
+    
+    <%= yield %>
+  </body>
+</html>

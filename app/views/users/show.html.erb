@@ -1,0 +1,89 @@
+<section class="hero is-small is-link">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        マイページ
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">        
+        <table class="table is-fullwidth">
+          <tr>
+            <th class="is-size-4">ユーザー名</th>
+            <td class="is-size-4">
+              <strong><%= @user.username %></strong>
+            </td>
+          </tr>
+          <% if user_signed_in? && @user.id == current_user.id %>
+            <tr>
+              <th class="is-size-4">メールアドレス</th>
+              <td class="is-size-4"><%= @user.email %></td>
+              <td>
+                <%= link_to "ユーザー情報を更新する", edit_user_path(@user), class: "button is-primary" %>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <th class="is-size-4">投稿数</th>
+            <td class="is-size-4"><%= @user.reviews.count %></td>
+          </tr>
+          <tr>
+            <th class="is-size-4">プロフィール</th>
+            <td colspan="2"><%= simple_format @user.profile %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title is-size-4">
+      レビュー一覧
+    </h1>
+    <div class="columns is-multiline">
+      <% if @user.reviews.present? %>
+        <% @user.reviews.each do |review| %>
+          <div class="column is-4">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <%= link_to attraction_path(review.attraction.api_id) do %>
+                    <%= image_tag review.attraction.images_src %>
+                  <% end %>
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <p class="title is-4"><%= review.attraction.name %></p>
+                </div>
+                <div class="content">
+                  <p class="title is-5"><%= link_to review.title, review_path(review) %></p>
+                </div>
+                <div class="content">
+                  <p><%= truncate(review.body, length: 50) %></p>
+                  <% if user_signed_in? && @user.id == current_user.id %>
+                    <%= link_to "編集する", edit_review_path(review), class: "button is-primary" %>
+                    <%= link_to "削除する", review_path(review), method: :delete, data: {confirm: "削除しますか？"}, class: "button is-danger" %>
+                  <% end %>
+                </div>
+                <div class="content">
+                  <time><%= review.updated_at.strftime("%Y-%m-%d %H:%M") %></time>更新
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>まだレビューを投稿していません</p>
+      <% end %>
+      
+    </div>
+  </div>
+</section>

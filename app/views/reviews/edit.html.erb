@@ -1,0 +1,43 @@
+<section class="hero is-small is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <%= @review.attraction.name %>
+      </h1>
+    </div>
+  </div>
+</section>
+
+<% if @review.errors.any? %>
+ <div class="notification is-danger">
+   <h2>更新が失敗しました</h2>
+   <ul>
+     <% @review.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+     <% end %>
+   </ul>
+ </div>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @review do |f| %>
+          <div class="field">
+            <%= f.label :title, "タイトル", class: "label" %>
+            <%= f.text_field :title, class: "input" %>
+          </div>
+  
+          <div class="field">
+            <%= f.label :body, "レビュー内容", class: "label" %>
+            <%= f.text_area :body, class: "textarea" %>
+          </div>
+
+          <%= f.submit "更新", class: "button is-success" %>
+          <%= link_to "アトラクション詳細へ戻る", attraction_path(@review.attraction.api_id), class: "button is-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

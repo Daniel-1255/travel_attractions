@@ -1,0 +1,35 @@
+<section class="hero is-small is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        新規レビュー投稿
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @review do |f| %>
+          <div class="field">
+            <p class="title is-4"><%= @attraction.name %></p>
+            <%= f.hidden_field :attraction_id, value: @attraction.id %>
+          </div>
+          <div class="field">
+            <%= f.label :title, "タイトル", class: "label" %>
+            <%= f.text_field :title, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :body, "レビュー内容", class: "label" %>
+            <%= f.text_area :body, class: "textarea" %>
+          </div>
+        
+          <%= f.submit "レビューを投稿する", class: "button is-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
