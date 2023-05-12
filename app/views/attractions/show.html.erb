@@ -4,6 +4,7 @@
       <h1 class="title">
         <p class="title is-1"><%= @attraction.name %></p>
         <p class="title is-5"><%= @attraction.address %></p>
+        <%# このアトラクションが属するすべてのカテゴリーをTAGとして表示する %>
         <% @attraction.attraction_categories.each do |attraction_category| %>
           <span class="tag is-primary is-large"><%= attraction_category.name %></span>
         <% end %>
@@ -19,6 +20,7 @@
         <div class="card">
           <div class="card-image">
             <figure class="image is-4by3">
+              <%# このアトラクションのAPIデータに画像URLがない場合、no imageの画像を表示する %>
               <% if @attraction.images_src.present? %>
                 <%= image_tag @attraction.images_src %>
               <% else %>
@@ -53,6 +55,7 @@
                 <th><%= link_to review.title, review_path(review) %></td>
                 <td><%= truncate(review.body, length: 10) %></td>
                 <td style="text-align:right">
+                  <%# 自身が投稿したものはユーザーネームの代わりに編集・削除ボタンを表示する %>
                   <% if user_signed_in? && review.user.id == current_user.id %>
                     <%= link_to "編集", edit_review_path(review) %>
                     <%= link_to "削除", review_path(review), method: :delete, data: {confirm: "削除しますか？"} %>

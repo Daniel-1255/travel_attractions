@@ -2,6 +2,7 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
+        <%# 今回検索するカテゴリー %>
         Category: <%= @category.name %>
       </h1>
     </div>
@@ -17,6 +18,7 @@
             <div class="card-image">
               <figure class="image is-4by3">
                 <%= link_to attraction_path(attraction.api_id) do %>
+                  <%# このアトラクションのAPIデータに画像URLがない場合、no imageの画像を表示する %>
                   <% if attraction.images_src.present? %>
                     <%= image_tag attraction.images_src %>
                   <% else %>

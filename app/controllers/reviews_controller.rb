@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   def index
-    @reviews = Review.all;
+    # @reviews = Review.all;
   end
 
   def show
@@ -16,6 +16,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
+    # レビューを新規投稿後attractionの詳細ページにredirectする
     if @review.save
       redirect_to attraction_path(@review.attraction.api_id), notice: "投稿しました"
     else

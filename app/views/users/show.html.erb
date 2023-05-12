@@ -55,7 +55,12 @@
               <div class="card-image">
                 <figure class="image is-4by3">
                   <%= link_to attraction_path(review.attraction.api_id) do %>
-                    <%= image_tag review.attraction.images_src %>
+                    <%# このアトラクションのAPIデータに画像URLがない場合、no imageの画像を表示する %>
+                    <% if review.attraction.images_src.present? %>
+                      <%= image_tag review.attraction.images_src %>
+                    <% else %>
+                      <%= image_tag "l_e_others_500.jpg" %>
+                    <% end %>                    
                   <% end %>
                 </figure>
               </div>
